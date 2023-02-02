@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    tools:context=".MainActivity">
+    tools:context=".RegisterCustomerActivity">
 
     <View
         android:layout_width="match_parent"
@@ -27,14 +27,14 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="Register"
                 android:textColor="@color/white"
                 android:textSize="44sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/inputEmail"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/inputEmail"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
                 android:id="@+id/inputEmail"
@@ -54,10 +54,10 @@
                 android:paddingBottom="13dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/inputPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/inputPassword" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
                 android:id="@+id/inputPassword"
@@ -75,10 +75,10 @@
                 android:paddingBottom="13dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/inputConfirmPassword"
                 app:layout_constraintEnd_toEndOf="@+id/inputEmail"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/inputEmail"
-                app:layout_constraintBottom_toTopOf="@+id/inputConfirmPassword" />
+                app:layout_constraintStart_toStartOf="@+id/inputEmail" />
 
             <EditText
                 android:id="@+id/inputConfirmPassword"
@@ -96,22 +96,22 @@
                 android:paddingBottom="13dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
                 app:layout_constraintEnd_toEndOf="@+id/inputPassword"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/inputPassword"
-                app:layout_constraintBottom_toTopOf="@+id/buttonRegister" />
+                app:layout_constraintStart_toStartOf="@+id/inputPassword" />
 
             <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Register"
                 android:backgroundTint="#515151"
+                android:text="Register"
                 android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
                 app:layout_constraintEnd_toEndOf="@+id/inputConfirmPassword"
-                app:layout_constraintStart_toStartOf="@+id/inputConfirmPassword"
-                app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount" />
+                app:layout_constraintStart_toStartOf="@+id/inputConfirmPassword" />
 
             <TextView
                 android:id="@+id/alreadyHaveAccount"
@@ -121,22 +121,22 @@
                 android:text="Already have account??"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/registerCompany"
                 app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
-                app:layout_constraintStart_toStartOf="@+id/buttonRegister"
-                app:layout_constraintBottom_toBottomOf="@+id/registerCompany"/>
+                app:layout_constraintStart_toStartOf="@+id/buttonRegister" />
 
             <TextView
                 android:id="@+id/registerCompany"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20pt"
-                android:textAlignment="center"
                 android:text="You are manager of restaurant or fast food? Register your company here"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
-                app:layout_constraintStart_toStartOf="@+id/buttonRegister"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="@+id/buttonRegister" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
