@@ -28,7 +28,7 @@ public class StartupActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount() == 0) {
                     // Create the admin user
-                    firebaseAuth.createUserWithEmailAndPassword("admin@admin.com", "admin123")
+                    firebaseAuth.createUserWithEmailAndPassword("admin@admin.com", "password")
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     FirebaseUser firebaseUser = task.getResult().getUser();
