@@ -1,8 +1,10 @@
-package com.example.food_order_application_android;
+package com.example.food_order_application_android.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.food_order_application_android.R;
 
 public class ManagerHomePageActivity extends AppCompatActivity {
 
