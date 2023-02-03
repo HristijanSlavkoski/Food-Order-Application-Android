@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    tools:context=".RegisterCustomerActivity">
+    tools:context=".RegisterActivity">
 
     <View
         android:layout_width="match_parent"
@@ -118,25 +118,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24pt"
-                android:text="Already have account??"
+                android:text="Already have account?"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/registerCompany"
+                app:layout_constraintBottom_toBottomOf="@+id/switchRole"
                 app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
                 app:layout_constraintStart_toStartOf="@+id/buttonRegister" />
 
-            <TextView
-                android:id="@+id/registerCompany"
+            <Switch
+                android:id="@+id/switchRole"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20pt"
-                android:text="You are manager of restaurant or fast food? Register your company here"
+                android:text="Are you a manager?"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
-                app:layout_constraintStart_toStartOf="@+id/buttonRegister" />
+                app:layout_constraintEnd_toEndOf="@+id/alreadyHaveAccount"
+                app:layout_constraintStart_toStartOf="@+id/alreadyHaveAccount" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

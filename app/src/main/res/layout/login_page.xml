@@ -106,21 +106,8 @@
                 android:id="@+id/createNewAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24pt"
+                android:layout_marginBottom="50pt"
                 android:text="Create New Account?"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/loginCompany"
-                app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
-                app:layout_constraintStart_toStartOf="@+id/buttonLogin" />
-
-            <Switch
-                android:id="@+id/loginCompany"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20pt"
-                android:text="Are you a manager?"
-                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

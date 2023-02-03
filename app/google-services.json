@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "826428315833",
+    "project_id": "food-order-application-5b612",
+    "firebase_url": "https://food-order-application-5b612-default-rtdb.firebaseio.com/",
+    "storage_bucket": "food-order-application-5b612.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826428315833:android:1eab01d862c4fb1f966368",
+        "android_client_info": {
+          "package_name": "com.example.food_order_application_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826428315833-077r731e4dnj2cajrp8mqh3rm3ugukmj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWaJFs4TTtfhzT0J5O4x8LxMesLGyTB4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826428315833-077r731e4dnj2cajrp8mqh3rm3ugukmj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
