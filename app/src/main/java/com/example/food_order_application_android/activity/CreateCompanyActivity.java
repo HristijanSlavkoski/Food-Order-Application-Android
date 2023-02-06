@@ -99,6 +99,13 @@ public class CreateCompanyActivity extends AppCompatActivity {
             startActivityForResult(intent, PICK_LOCATION);
         });
 
+        companyLocationView.setOnClickListener(view -> {
+            Intent intent = new Intent(CreateCompanyActivity.this, ActivityPickLocationForNewCompany.class);
+            intent.setType("location/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, PICK_LOCATION);
+        });
+
         companyImageView.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setType("image/*");

@@ -6,6 +6,14 @@
         <item>Seafood</item>
         <item>Dessert</item>
     </string-array>
+
+    <string-array name="categories_search_filter">
+        <item>All</item>
+        <item>Fast Food</item>
+        <item>Restaurant</item>
+        <item>Seafood</item>
+        <item>Dessert</item>
+    </string-array>
     <string name="title_activity_pick_location_for_new_company">ActivityPickLocationForNewCompany
     </string>
 </resources>
