@@ -22,17 +22,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
-    TextView alreadyHaveAccount;
-    EditText inputEmail, inputPassword, inputConfirmPassword;
-    Button buttonRegister;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    ProgressDialog progressDialog;
-    Switch switchRole;
+    private TextView alreadyHaveAccount;
+    private EditText inputEmail, inputPassword, inputConfirmPassword;
+    private Button buttonRegister;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private ProgressDialog progressDialog;
+    private Switch switchRole;
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

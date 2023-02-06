@@ -1,6 +1,8 @@
 package com.example.food_order_application_android.model;
 
-public enum Role {
+import java.io.Serializable;
+
+public enum Role implements Serializable {
     ADMIN,
     CUSTOMER,
     MANAGER

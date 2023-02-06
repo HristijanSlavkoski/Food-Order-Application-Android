@@ -1,129 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF8942"
-    tools:context=".activity.CreateCompanyActivity">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <View
+    <EditText
+        android:id="@+id/company_name_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#1D000000" />
+        android:layout_height="wrap_content"
+        android:hint="Company Name"
+        android:textAlignment="center"
+        android:textSize="25sp" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="-16dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/company_image_view"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginRight="5sp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Company Image"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/company_location_view"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="5sp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Company Location"
+            android:scaleType="centerCrop" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/select_image_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5sp"
+            android:layout_weight="1"
+            android:backgroundTint="#515151"
+            android:text="Select Image" />
+
+        <Button
+            android:id="@+id/select_location_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_weight="1"
+            android:backgroundTint="#515151"
+            android:text="Select Location" />
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Working at weekends?" />
+
+    <Switch
+        android:id="@+id/working_at_weekends_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Working at night?" />
+
+    <Switch
+        android:id="@+id/working_at_night_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Offers delivery?" />
+
+    <Switch
+        android:id="@+id/offers_delivery_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/add_food_item_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#515151"
+        android:text="Add Food Item" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/food_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="140sp"
+            android:orientation="horizontal" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="96dp"
-                android:text="Register"
-                android:textColor="@color/white"
-                android:textSize="44sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/add_company_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#515151"
+            android:text="Add Company"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/inputEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="24dp"
-                android:drawableLeft="@drawable/ic_baseline_email_24"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="20dp"
-                android:paddingTop="13dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="13dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <EditText
-                android:id="@+id/inputPassword"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:drawableLeft="@drawable/ic_baseline_security_24"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:paddingLeft="20dp"
-                android:paddingTop="13dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="13dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/inputEmail"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/inputEmail"
-                app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
-
-            <EditText
-                android:id="@+id/inputConfirmPassword"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:drawableLeft="@drawable/ic_baseline_security_24"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="Confirm Password"
-                android:inputType="textPassword"
-                android:paddingLeft="20dp"
-                android:paddingTop="13dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="13dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/inputPassword"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/inputPassword"
-                app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
-
-            <Button
-                android:id="@+id/buttonRegister"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Register"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/inputConfirmPassword"
-                app:layout_constraintStart_toStartOf="@+id/inputConfirmPassword"
-                app:layout_constraintTop_toBottomOf="@+id/inputConfirmPassword" />
-
-            <TextView
-                android:id="@+id/alreadyHaveAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Already have account??"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
-                app:layout_constraintStart_toStartOf="@+id/buttonRegister"
-                app:layout_constraintTop_toBottomOf="@+id/buttonRegister" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

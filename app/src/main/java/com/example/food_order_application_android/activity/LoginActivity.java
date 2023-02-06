@@ -22,16 +22,16 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView createNewAccount, forgotPassword;
-    EditText inputEmail, inputPassword;
-    Button buttonLogin;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    ProgressDialog progressDialog;
+    private TextView createNewAccount, forgotPassword;
+    private EditText inputEmail, inputPassword;
+    private Button buttonLogin;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private ProgressDialog progressDialog;
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
