@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getSupportActionBar().hide();
         createNewAccount = findViewById(R.id.createNewAccount);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
@@ -81,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                                         if (!task1.isSuccessful()) {
                                             msg = "Subscribe failed";
                                         }
-                                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                        // Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
                                     });
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             Intent intent;

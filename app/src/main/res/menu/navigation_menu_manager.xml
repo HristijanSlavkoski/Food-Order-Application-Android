@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <item
+        android:id="@+id/open_home_page"
+        android:title="My companies" />
+
+    <item
+        android:id="@+id/create_company"
+        android:title="Create new company" />
+
+    <item
+        android:id="@+id/open_orders"
+        android:title="Order List" />
+
+    <group
+        android:id="@+id/group_bottom"
+        android:orderInCategory="999">
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"
+            android:orderInCategory="999"/>
+    </group>
+
+</menu>

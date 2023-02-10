@@ -73,12 +73,11 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         if (company.isWorkingAtNight() == false) {
-            if (hour >= 8 || hour < 0) {
-                if (hour == 8 && minute >= 0) {
-                    // the current time is between 08:00 and 00:00
-                    viewHolder.isOpenNow.setText("Closes at 00:00");
-                    viewHolder.isOpenNow.setBackgroundColor(Color.GREEN);
-                }
+            if (hour >= 8) {
+                // the current time is between 08:00 and 00:00
+                viewHolder.isOpenNow.setText("Closes at 00:00");
+                viewHolder.isOpenNow.setBackgroundColor(Color.GREEN);
+
             } else {
                 // the current time is not between 08:00 and 00:00
                 viewHolder.isOpenNow.setText("Opens at 08:00");

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Food-Order-Application-Android</string>
+    <string name="app_name"></string>
     <string-array name="categories">
         <item>Fast Food</item>
         <item>Restaurant</item>
@@ -16,4 +16,8 @@
     </string-array>
     <string name="title_activity_pick_location_for_new_company">ActivityPickLocationForNewCompany
     </string>
+
+    <!-- to toggle the open close button of the navigation drawer -->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 </resources>

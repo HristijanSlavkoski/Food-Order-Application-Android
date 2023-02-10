@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF8942"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".activity.CustomerHomePageActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="Bon Appétit"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="35sp"
-        android:textStyle="bold" />
+    tools:context=".activity.CustomerHomePageActivity"
+    tools:ignore="HardcodedText">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ABFFFFFF"
-        android:elevation="8dp"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:background="#FF8942"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <SearchView
-            android:id="@+id/search_bar"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search by name of place" />
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="Bon Appétit"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinner_category"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:background="#FFFFFF"
-            android:entries="@array/categories_search_filter" />
+            android:background="#ABFFFFFF"
+            android:elevation="8dp"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-        <Button
-            android:id="@+id/btn_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#515151"
-            android:text="Map"
-            android:textColor="@color/white" />
+            <SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search by name of place" />
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:background="#FFFFFF"
+                android:entries="@array/categories_search_filter" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/company_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/company_list"
-        android:layout_width="match_parent"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_menu"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp" />
-
-</LinearLayout>
+        android:layout_gravity="left"
+        app:menu="@menu/navigation_menu_customer"
+        android:background="@color/quantum_amber200"/>
+</androidx.drawerlayout.widget.DrawerLayout>
