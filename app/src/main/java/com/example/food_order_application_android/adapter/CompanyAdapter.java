@@ -2,6 +2,8 @@ package com.example.food_order_application_android.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +65,16 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         String imageUrl = company.getImageUrl();
         Picasso.get().load(imageUrl).into(viewHolder.companyImage);
         viewHolder.companyName.getRootView().setOnClickListener(v -> {
-            // TODO: Go to the company info :)
-            Toast.makeText(mContext, company.getName(), Toast.LENGTH_SHORT).show();
+            View view = v.findViewById(R.id.is_open_now);
+            Drawable background = view.getBackground();
+            if (background instanceof ColorDrawable) {
+                int color = ((ColorDrawable) background).getColor();
+                if (color == Color.RED) {
+                    Toast.makeText(mContext, company.getName() + " is not working right now", Toast.LENGTH_SHORT).show();
+                } else {
+                    // TODO: Open company info for ordering
+                }
+            }
         });
 
         Calendar calendar = Calendar.getInstance();
@@ -73,7 +83,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         if (company.isWorkingAtNight() == false) {
-            if (hour >= 8) {
+            if (hour >= 7) {
                 // the current time is between 08:00 and 00:00
                 viewHolder.isOpenNow.setText("Closes at 00:00");
                 viewHolder.isOpenNow.setBackgroundColor(Color.GREEN);

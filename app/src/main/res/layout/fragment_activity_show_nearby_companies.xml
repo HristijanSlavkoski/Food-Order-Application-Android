@@ -21,6 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:background="@color/purple_200"
+        android:background="@color/quantum_amber200"
         app:menu="@menu/navigation_menu_customer" />
 </androidx.drawerlayout.widget.DrawerLayout>
