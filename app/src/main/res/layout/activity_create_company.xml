@@ -1,132 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF8942"
     android:orientation="vertical"
-    android:padding="16dp">
+    tools:context=".activity.CreateCompanyActivity"
+    tools:ignore="HardcodedText">
 
-    <EditText
-        android:id="@+id/company_name_edit_text"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Company Name"
-        android:textAlignment="center"
-        android:textSize="25sp" />
+        android:layout_height="match_parent"
+        android:background="#FF8942"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/company_image_view"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginRight="5sp"
-            android:layout_weight="1"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="Company Image"
-            android:scaleType="centerCrop" />
-
-        <ImageView
-            android:id="@+id/company_location_view"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="5sp"
-            android:layout_weight="1"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="Company Location"
-            android:scaleType="centerCrop" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/select_image_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5sp"
-            android:layout_weight="1"
-            android:backgroundTint="#515151"
-            android:text="Select Image" />
-
-        <Button
-            android:id="@+id/select_location_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5sp"
-            android:layout_weight="1"
-            android:backgroundTint="#515151"
-            android:text="Select Location" />
-
-    </LinearLayout>
-
-    <Spinner
-        android:id="@+id/category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Working at weekends?" />
-
-    <Switch
-        android:id="@+id/working_at_weekends_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Working at night?" />
-
-    <Switch
-        android:id="@+id/working_at_night_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Offers delivery?" />
-
-    <Switch
-        android:id="@+id/offers_delivery_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/add_food_item_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#515151"
-        android:text="Add Food Item" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/food_list_view"
+        <EditText
+            android:id="@+id/company_name_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="140sp"
-            android:orientation="horizontal" />
+            android:layout_height="wrap_content"
+            android:hint="Company Name"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/company_image_view"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginRight="5sp"
+                android:layout_weight="1"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="Company Image"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/company_location_view"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="5sp"
+                android:layout_weight="1"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="Company Location"
+                android:scaleType="centerCrop" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/select_image_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5sp"
+                android:layout_weight="1"
+                android:backgroundTint="#515151"
+                android:text="Select Image" />
+
+            <Button
+                android:id="@+id/select_location_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_weight="1"
+                android:backgroundTint="#515151"
+                android:text="Select Location" />
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Working at weekends?" />
+
+        <Switch
+            android:id="@+id/working_at_weekends_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Working at night?" />
+
+        <Switch
+            android:id="@+id/working_at_night_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Offers delivery?" />
+
+        <Switch
+            android:id="@+id/offers_delivery_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/add_company_button"
+            android:id="@+id/add_food_item_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#515151"
-            android:text="Add Company"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </LinearLayout>
+            android:text="Add Food Item" />
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/food_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="140sp"
+                android:orientation="horizontal" />
+
+            <Button
+                android:id="@+id/add_company_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#515151"
+                android:text="Add Company"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@color/quantum_amber200"
+        app:menu="@menu/navigation_menu_manager" />
+</androidx.drawerlayout.widget.DrawerLayout>

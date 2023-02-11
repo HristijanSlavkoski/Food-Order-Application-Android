@@ -212,7 +212,6 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }

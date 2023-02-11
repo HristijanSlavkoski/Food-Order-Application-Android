@@ -14,6 +14,13 @@
         <item>Seafood</item>
         <item>Dessert</item>
     </string-array>
+
+    <string-array name="approved_or_no">
+        <item>All</item>
+        <item>Approved</item>
+        <item>Pending</item>
+    </string-array>
+
     <string name="title_activity_pick_location_for_new_company">ActivityPickLocationForNewCompany
     </string>
 

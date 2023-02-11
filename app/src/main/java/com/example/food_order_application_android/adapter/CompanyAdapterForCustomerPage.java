@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> implements Filterable {
+public class CompanyAdapterForCustomerPage extends RecyclerView.Adapter<CompanyAdapterForCustomerPage.ViewHolder> implements Filterable {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
@@ -38,7 +38,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     private int rowLayout;
     private Context mContext;
 
-    public CompanyAdapter(List<String> keys, List<Company> myList, int rowLayout, Context context) {
+    public CompanyAdapterForCustomerPage(List<String> keys, List<Company> myList, int rowLayout, Context context) {
         this.myKeys = keys;
         this.myList = myList;
         this.filteredCompanyList = myList;

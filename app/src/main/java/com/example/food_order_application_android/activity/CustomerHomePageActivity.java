@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order_application_android.R;
-import com.example.food_order_application_android.adapter.CompanyAdapter;
+import com.example.food_order_application_android.adapter.CompanyAdapterForCustomerPage;
 import com.example.food_order_application_android.model.Company;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +35,7 @@ import java.util.List;
 public class CustomerHomePageActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private CompanyAdapter companyAdapter;
+    private CompanyAdapterForCustomerPage companyAdapterForCustomerPage;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
@@ -49,6 +49,7 @@ public class CustomerHomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_home_page);
+
         drawerLayout = findViewById(R.id.my_drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -111,8 +112,8 @@ public class CustomerHomePageActivity extends AppCompatActivity {
                         newKeyList.add(dataSnapshot.getKey());
                     }
                 }
-                companyAdapter = new CompanyAdapter(newKeyList, newCompanyList, R.layout.company_row, CustomerHomePageActivity.this);
-                mRecyclerView.setAdapter(companyAdapter);
+                companyAdapterForCustomerPage = new CompanyAdapterForCustomerPage(newKeyList, newCompanyList, R.layout.company_row_at_customer_page, CustomerHomePageActivity.this);
+                mRecyclerView.setAdapter(companyAdapterForCustomerPage);
 
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -130,9 +131,9 @@ public class CustomerHomePageActivity extends AppCompatActivity {
                                 newKeyList.add(fullKeyList.get(i));
                             }
                         }
-                        companyAdapter.clear();
-                        companyAdapter = new CompanyAdapter(newKeyList, newCompanyList, R.layout.company_row, CustomerHomePageActivity.this);
-                        mRecyclerView.setAdapter(companyAdapter);
+                        companyAdapterForCustomerPage.clear();
+                        companyAdapterForCustomerPage = new CompanyAdapterForCustomerPage(newKeyList, newCompanyList, R.layout.company_row_at_customer_page, CustomerHomePageActivity.this);
+                        mRecyclerView.setAdapter(companyAdapterForCustomerPage);
                     }
 
                     @Override
@@ -144,13 +145,13 @@ public class CustomerHomePageActivity extends AppCompatActivity {
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        companyAdapter.getFilter().filter(query);
+                        companyAdapterForCustomerPage.getFilter().filter(query);
                         return false;
                     }
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        companyAdapter.getFilter().filter(newText);
+                        companyAdapterForCustomerPage.getFilter().filter(newText);
                         return false;
                     }
                 });
@@ -165,7 +166,6 @@ public class CustomerHomePageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
