@@ -42,6 +42,8 @@ import java.util.ArrayList;
 public class ActivityShowNearbyCompanies extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private ArrayList<Company> companies;
+    private ArrayList<String> keys;
     private FragmentActivityShowNearbyCompaniesBinding binding;
     private GoogleMap map;
     private Double longitude = 0.0;
@@ -73,6 +75,9 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        companies = (ArrayList<Company>) getIntent().getSerializableExtra("companies");
+        keys = getIntent().getStringArrayListExtra("keys");
+
         NavigationView navigationView = findViewById(R.id.navigation_menu);
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -84,8 +89,13 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
                     drawerLayout.close();
                     return true;
                 }
-                case R.id.open_orders:
-                    // Perform open orders
+                case R.id.open_orders: {
+                    Intent intent = new Intent(ActivityShowNearbyCompanies.this, ShowOrdersForCustomer.class);
+                    intent.putExtra("companies", companies);
+                    intent.putStringArrayListExtra("keys", keys);
+                    startActivity(intent);
+                    return true;
+                }
                 case R.id.nav_logout: {
                     firebaseAuth.signOut();
                     startActivity(new Intent(ActivityShowNearbyCompanies.this, LoginActivity.class));
@@ -115,8 +125,6 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
         LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
 
-        ArrayList<Company> companies = (ArrayList<Company>) getIntent().getSerializableExtra("companies");
-        ArrayList<String> keys = getIntent().getStringArrayListExtra("keys");
         for (Company company : companies) {
             LatLng companyLocation = new LatLng(company.getLocation().getLatitude(), company.getLocation().getLongitude());
             map.addMarker(new MarkerOptions().position(companyLocation).title(company.getName()).snippet(company.getCategory().toString()));
@@ -136,8 +144,20 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO: Go to info of the company
-                        Toast.makeText(v.getRootView().getContext(), "YEPPPP", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(v.getContext(), CompanyInfoForCustomer.class);
+                        Company company = null;
+                        String key = null;
+                        for (int i = 0; i < companies.size(); i++) {
+                            if (companies.get(i).getName().equals(marker.getTitle())) {
+                                company = companies.get(i);
+                                key = keys.get(i);
+                            }
+                        }
+                        intent.putExtra("company", company);
+                        intent.putExtra("key", key);
+                        intent.putExtra("companies", companies);
+                        intent.putStringArrayListExtra("keys", keys);
+                        v.getContext().startActivity(intent);
                     }
                 });
 

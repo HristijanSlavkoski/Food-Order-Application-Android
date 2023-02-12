@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Order implements Serializable {
     private String userUUID;
     private String companyUUID;
+    private String companyName;
     private String managerUUID;
     private boolean deliveryToHome;
     private CustomLocationClass location;
@@ -13,14 +14,15 @@ public class Order implements Serializable {
     private String comment;
     private double totalPrice;
     private boolean isOrderTaken;
-    private double timestampWhenOrderWillBeFinishedInMillis;
+    private long timestampWhenOrderWillBeFinishedInMillis;
 
     public Order() {
     }
 
-    public Order(String userUUID, String companyUUID, String managerUUID, boolean deliveryToHome, CustomLocationClass location, ArrayList<FoodOrder> foodOrderArrayList, String comment, double totalPrice, boolean isOrderTaken, double timestampWhenOrderWillBeFinishedInMillis) {
+    public Order(String userUUID, String companyUUID, String companyName, String managerUUID, boolean deliveryToHome, CustomLocationClass location, ArrayList<FoodOrder> foodOrderArrayList, String comment, double totalPrice, boolean isOrderTaken, long timestampWhenOrderWillBeFinishedInMillis) {
         this.userUUID = userUUID;
         this.companyUUID = companyUUID;
+        this.companyName = companyName;
         this.managerUUID = managerUUID;
         this.deliveryToHome = deliveryToHome;
         this.location = location;
@@ -45,6 +47,14 @@ public class Order implements Serializable {
 
     public void setCompanyUUID(String companyUUID) {
         this.companyUUID = companyUUID;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getManagerUUID() {
@@ -95,11 +105,11 @@ public class Order implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public double getTimestampWhenOrderWillBeFinishedInMillis() {
+    public long getTimestampWhenOrderWillBeFinishedInMillis() {
         return timestampWhenOrderWillBeFinishedInMillis;
     }
 
-    public void setTimestampWhenOrderWillBeFinishedInMillis(double timestampWhenOrderWillBeFinishedInMillis) {
+    public void setTimestampWhenOrderWillBeFinishedInMillis(long timestampWhenOrderWillBeFinishedInMillis) {
         this.timestampWhenOrderWillBeFinishedInMillis = timestampWhenOrderWillBeFinishedInMillis;
     }
 

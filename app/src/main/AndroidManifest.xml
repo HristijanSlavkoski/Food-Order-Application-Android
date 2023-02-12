@@ -19,6 +19,20 @@
         android:theme="@style/Theme.FoodOrderApplicationAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ShowOrdersForManager"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.ShowOrdersForCustomer"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.CompanyInfoForCustomer"
             android:exported="false">
             <meta-data

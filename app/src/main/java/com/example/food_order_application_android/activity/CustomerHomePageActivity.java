@@ -83,15 +83,19 @@ public class CustomerHomePageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 }
-                case R.id.open_orders:
-                    // Perform open orders
+                case R.id.open_orders:{
+                    Intent intent = new Intent(CustomerHomePageActivity.this, ShowOrdersForCustomer.class);
+                    intent.putExtra("companies", fullCompanyList);
+                    intent.putStringArrayListExtra("keys", fullKeyList);
+                    startActivity(intent);
+                    return true;
+                }
                 case R.id.nav_logout: {
                     firebaseAuth.signOut();
                     startActivity(new Intent(CustomerHomePageActivity.this, LoginActivity.class));
                     Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
                     return true;
                 }
-
                 default:
                     return false;
             }

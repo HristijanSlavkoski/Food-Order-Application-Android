@@ -21,6 +21,12 @@
         <item>Pending</item>
     </string-array>
 
+    <string-array name="order_taken_or_no">
+        <item>All</item>
+        <item>Taken</item>
+        <item>Pending</item>
+    </string-array>
+
     <string name="title_activity_pick_location_for_new_company">ActivityPickLocationForNewCompany
     </string>
 

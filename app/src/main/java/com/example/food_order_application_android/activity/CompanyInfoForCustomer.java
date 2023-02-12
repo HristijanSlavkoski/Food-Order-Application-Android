@@ -101,7 +101,11 @@ public class CompanyInfoForCustomer extends AppCompatActivity implements FoodFor
                     return true;
                 }
                 case R.id.open_orders: {
-                    // Perform open orders
+                    Intent intent = new Intent(CompanyInfoForCustomer.this, ShowOrdersForCustomer.class);
+                    intent.putExtra("companies", companies);
+                    intent.putStringArrayListExtra("keys", keys);
+                    startActivity(intent);
+                    return true;
                 }
                 case R.id.nav_logout: {
                     firebaseAuth.signOut();
@@ -135,6 +139,7 @@ public class CompanyInfoForCustomer extends AppCompatActivity implements FoodFor
                 Order order = new Order();
                 order.setUserUUID(firebaseAuth.getUid());
                 order.setCompanyUUID(key);
+                order.setCompanyName(company.getName());
                 order.setManagerUUID(company.getManagerUUID());
                 order.setDeliveryToHome(offersDeliverySwitch.isChecked());
                 if (offersDeliverySwitch.isChecked()) {

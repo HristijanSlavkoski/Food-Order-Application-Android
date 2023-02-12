@@ -111,8 +111,11 @@ public class CreateCompanyActivity extends AppCompatActivity {
                     drawerLayout.close();
                     return true;
                 }
-                case R.id.open_orders:
-                    // Perform open orders
+                case R.id.open_orders: {
+                    Intent intent = new Intent(CreateCompanyActivity.this, ShowOrdersForManager.class);
+                    startActivity(intent);
+                    return true;
+                }
                 case R.id.nav_logout: {
                     firebaseAuth.signOut();
                     startActivity(new Intent(CreateCompanyActivity.this, LoginActivity.class));

@@ -81,7 +81,9 @@ public class CompanyInfoForManager extends AppCompatActivity {
                     return true;
                 }
                 case R.id.open_orders: {
-                    // Perform open orders
+                    Intent intent = new Intent(CompanyInfoForManager.this, ShowOrdersForManager.class);
+                    startActivity(intent);
+                    return true;
                 }
                 case R.id.nav_logout: {
                     firebaseAuth.signOut();

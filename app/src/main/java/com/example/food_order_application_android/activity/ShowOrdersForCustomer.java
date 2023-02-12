@@ -18,8 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order_application_android.R;
-import com.example.food_order_application_android.adapter.CompanyAdapterForManagerPage;
+import com.example.food_order_application_android.adapter.OrderAdapterForCustomer;
 import com.example.food_order_application_android.model.Company;
+import com.example.food_order_application_android.model.Order;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,10 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerHomePageActivity extends AppCompatActivity {
-
+public class ShowOrdersForCustomer extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private CompanyAdapterForManagerPage companyAdapterForManagerPage;
+    private OrderAdapterForCustomer orderAdapterForCustomer;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
@@ -48,7 +48,7 @@ public class ManagerHomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager_home_page);
+        setContentView(R.layout.activity_show_orders_for_customer);
 
         drawerLayout = findViewById(R.id.my_drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
@@ -60,35 +60,39 @@ public class ManagerHomePageActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        mRecyclerView = findViewById(R.id.company_list);
+        mRecyclerView = findViewById(R.id.order_list);
         searchView = findViewById(R.id.search_bar);
         spinner = findViewById(R.id.spinner_category);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        ArrayList<Company> fullCompanyList = new ArrayList<>();
-        ArrayList<String> fullKeyList = new ArrayList<>();
+        ArrayList<Company> fullCompanyList = (ArrayList<Company>) getIntent().getSerializableExtra("companies");
+        ArrayList<String> fullKeyList = getIntent().getStringArrayListExtra("keys");
+        ArrayList<Order> orders = new ArrayList<>();
+        ArrayList<String> orderKeys = new ArrayList<>();
 
         NavigationView navigationView = findViewById(R.id.navigation_menu);
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.open_home_page: {
+                    startActivity(new Intent(ShowOrdersForCustomer.this, CustomerHomePageActivity.class));
                     drawerLayout.close();
                     return true;
                 }
-                case R.id.create_company: {
-                    Intent intent = new Intent(ManagerHomePageActivity.this, CreateCompanyActivity.class);
+                case R.id.open_map: {
+                    Intent intent = new Intent(ShowOrdersForCustomer.this, ActivityShowNearbyCompanies.class);
+                    intent.putExtra("companies", fullCompanyList);
+                    intent.putStringArrayListExtra("keys", fullKeyList);
                     startActivity(intent);
                     return true;
                 }
                 case R.id.open_orders: {
-                    Intent intent = new Intent(ManagerHomePageActivity.this, ShowOrdersForManager.class);
-                    startActivity(intent);
+                    drawerLayout.close();
                     return true;
                 }
                 case R.id.nav_logout: {
                     firebaseAuth.signOut();
-                    startActivity(new Intent(ManagerHomePageActivity.this, LoginActivity.class));
+                    startActivity(new Intent(ShowOrdersForCustomer.this, LoginActivity.class));
                     Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -97,45 +101,45 @@ public class ManagerHomePageActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("company").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("order").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Company> newCompanyList = new ArrayList<>();
+                List<Order> newOrderList = new ArrayList<>();
                 List<String> newKeyList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Company company = dataSnapshot.getValue(Company.class);
-                    if (company.getManagerUUID().equals(firebaseUser.getUid())) {
-                        fullCompanyList.add(company);
-                        fullKeyList.add(dataSnapshot.getKey());
-                        newCompanyList.add(company);
+                    Order order = dataSnapshot.getValue(Order.class);
+                    if (order.getUserUUID().equals(firebaseUser.getUid())) {
+                        orders.add(order);
+                        orderKeys.add(dataSnapshot.getKey());
+                        newOrderList.add(order);
                         newKeyList.add(dataSnapshot.getKey());
                     }
                 }
-                companyAdapterForManagerPage = new CompanyAdapterForManagerPage(newKeyList, newCompanyList, R.layout.company_row_at_manager_page, ManagerHomePageActivity.this);
-                mRecyclerView.setAdapter(companyAdapterForManagerPage);
+                orderAdapterForCustomer = new OrderAdapterForCustomer(newKeyList, newOrderList, R.layout.order_row_for_customer, ShowOrdersForCustomer.this);
+                mRecyclerView.setAdapter(orderAdapterForCustomer);
 
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        List<Company> newCompanyList = new ArrayList<>();
+                        List<Order> newOrderList = new ArrayList<>();
                         List<String> newKeyList = new ArrayList<>();
-                        for (int i = 0; i < fullCompanyList.size(); i++) {
+                        for (int i = 0; i < orders.size(); i++) {
                             if (!spinner.getSelectedItem().toString().equals("All")) {
-                                if (spinner.getSelectedItem().toString().equals("Approved") && fullCompanyList.get(i).isApproved()) {
-                                    newCompanyList.add(fullCompanyList.get(i));
-                                    newKeyList.add(fullKeyList.get(i));
-                                } else if (spinner.getSelectedItem().toString().equals("Pending") && !fullCompanyList.get(i).isApproved()) {
-                                    newCompanyList.add(fullCompanyList.get(i));
-                                    newKeyList.add(fullKeyList.get(i));
+                                if (orders.get(i).isOrderTaken() && spinner.getSelectedItem().toString().equals("Taken")) {
+                                    newOrderList.add(orders.get(i));
+                                    newKeyList.add(orderKeys.get(i));
+                                } else if (!orders.get(i).isOrderTaken() && spinner.getSelectedItem().toString().equals("Pending")) {
+                                    newOrderList.add(orders.get(i));
+                                    newKeyList.add(orderKeys.get(i));
                                 }
                             } else {
-                                newCompanyList.add(fullCompanyList.get(i));
-                                newKeyList.add(fullKeyList.get(i));
+                                newOrderList.add(orders.get(i));
+                                newKeyList.add(orderKeys.get(i));
                             }
                         }
-                        companyAdapterForManagerPage.clear();
-                        companyAdapterForManagerPage = new CompanyAdapterForManagerPage(newKeyList, newCompanyList, R.layout.company_row_at_manager_page, ManagerHomePageActivity.this);
-                        mRecyclerView.setAdapter(companyAdapterForManagerPage);
+                        orderAdapterForCustomer.clear();
+                        orderAdapterForCustomer = new OrderAdapterForCustomer(newKeyList, newOrderList, R.layout.order_row_for_customer, ShowOrdersForCustomer.this);
+                        mRecyclerView.setAdapter(orderAdapterForCustomer);
                     }
 
                     @Override
@@ -147,13 +151,13 @@ public class ManagerHomePageActivity extends AppCompatActivity {
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        companyAdapterForManagerPage.getFilter().filter(query);
+                        orderAdapterForCustomer.getFilter().filter(query);
                         return false;
                     }
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        companyAdapterForManagerPage.getFilter().filter(newText);
+                        orderAdapterForCustomer.getFilter().filter(newText);
                         return false;
                     }
                 });
@@ -161,7 +165,7 @@ public class ManagerHomePageActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ManagerHomePageActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShowOrdersForCustomer.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
