@@ -141,24 +141,21 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
 
                 titleTextView.setText(marker.getTitle());
                 categoryTextView.setText(marker.getSnippet());
-                actionButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), CompanyInfoForCustomer.class);
-                        Company company = null;
-                        String key = null;
-                        for (int i = 0; i < companies.size(); i++) {
-                            if (companies.get(i).getName().equals(marker.getTitle())) {
-                                company = companies.get(i);
-                                key = keys.get(i);
-                            }
+                actionButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(v.getContext(), CompanyInfoForCustomer.class);
+                    Company company = null;
+                    String key = null;
+                    for (int i = 0; i < companies.size(); i++) {
+                        if (companies.get(i).getName().equals(marker.getTitle())) {
+                            company = companies.get(i);
+                            key = keys.get(i);
                         }
-                        intent.putExtra("company", company);
-                        intent.putExtra("key", key);
-                        intent.putExtra("companies", companies);
-                        intent.putStringArrayListExtra("keys", keys);
-                        v.getContext().startActivity(intent);
                     }
+                    intent.putExtra("company", company);
+                    intent.putExtra("key", key);
+                    intent.putExtra("companies", companies);
+                    intent.putStringArrayListExtra("keys", keys);
+                    v.getContext().startActivity(intent);
                 });
 
                 return view;
@@ -169,6 +166,23 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
             public View getInfoWindow(@NonNull Marker marker) {
                 return null;
             }
+        });
+
+        map.setOnInfoWindowClickListener(marker -> {
+            Intent intent = new Intent(ActivityShowNearbyCompanies.this, CompanyInfoForCustomer.class);
+            Company company = null;
+            String key = null;
+            for (int i = 0; i < companies.size(); i++) {
+                if (companies.get(i).getName().equals(marker.getTitle())) {
+                    company = companies.get(i);
+                    key = keys.get(i);
+                }
+            }
+            intent.putExtra("company", company);
+            intent.putExtra("key", key);
+            intent.putExtra("companies", companies);
+            intent.putStringArrayListExtra("keys", keys);
+            startActivity(intent);
         });
     }
 
