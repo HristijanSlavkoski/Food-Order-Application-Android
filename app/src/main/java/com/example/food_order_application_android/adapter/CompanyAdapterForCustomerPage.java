@@ -28,10 +28,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class CompanyAdapterForCustomerPage extends RecyclerView.Adapter<CompanyAdapterForCustomerPage.ViewHolder> implements Filterable {
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     private List<String> myKeys;
     private List<Company> myList;
     private List<Company> filteredCompanyList;
@@ -54,10 +50,6 @@ public class CompanyAdapterForCustomerPage extends RecyclerView.Adapter<CompanyA
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
         Company company = filteredCompanyList.get(i);
         String key = myKeys.get(i);
         viewHolder.companyName.setText(company.getName());

@@ -136,6 +136,7 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // TODO: Go to info of the company
                         Toast.makeText(v.getRootView().getContext(), "YEPPPP", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -149,31 +150,6 @@ public class ActivityShowNearbyCompanies extends AppCompatActivity implements On
                 return null;
             }
         });
-
-//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//            @Override
-//            public boolean onMarkerClick(@NonNull Marker marker) {
-//                View view = getLayoutInflater().inflate(R.layout.marker_info, null);
-//                TextView title = view.findViewById(R.id.title);
-//                title.setText(marker.getTitle());
-//
-//                TextView category = view.findViewById(R.id.category);
-//                category.setText(marker.getSnippet());
-//
-//                Button button = view.findViewById(R.id.button);
-//                button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(v.getContext(), "YEPPPP", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//                InfoWindow infoWindow = new InfoWindow(view, marker.getPosition(), -47);
-//                map.showInfoWindow(infoWindow);
-//                return true;
-//            }
-//        });
-
     }
 
     private Location getLastKnownLocation() throws Exception {

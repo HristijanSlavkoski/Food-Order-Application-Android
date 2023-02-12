@@ -1,6 +1,7 @@
 package com.example.food_order_application_android.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order_application_android.R;
+import com.example.food_order_application_android.activity.CompanyInfoForAdmin;
+import com.example.food_order_application_android.activity.CompanyInfoForManager;
 import com.example.food_order_application_android.model.Company;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,10 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyAdapterForAdminPage extends RecyclerView.Adapter<CompanyAdapterForAdminPage.ViewHolder> implements Filterable {
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     private List<String> myKeys;
     private List<Company> myList;
     private List<Company> filteredCompanyList;
@@ -50,10 +49,6 @@ public class CompanyAdapterForAdminPage extends RecyclerView.Adapter<CompanyAdap
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
         Company company = filteredCompanyList.get(i);
         String key = myKeys.get(i);
         viewHolder.companyName.setText(company.getName());
@@ -69,7 +64,10 @@ public class CompanyAdapterForAdminPage extends RecyclerView.Adapter<CompanyAdap
         String imageUrl = company.getImageUrl();
         Picasso.get().load(imageUrl).into(viewHolder.companyImage);
         viewHolder.companyName.getRootView().setOnClickListener(v -> {
-            // TODO: Open company info
+            Intent intent = new Intent(v.getContext(), CompanyInfoForAdmin.class);
+            intent.putExtra("company", company);
+            intent.putExtra("key", key);
+            v.getContext().startActivity(intent);
         });
     }
 

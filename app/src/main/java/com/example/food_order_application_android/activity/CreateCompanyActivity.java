@@ -52,11 +52,11 @@ public class CreateCompanyActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
+    private StorageReference storageReference;
     private Company company;
     private ArrayList<Food> foodArrayList;
     private String managerUUID;
     private Uri imageUri;
-    private StorageReference storageReference;
     private ListView foodListView;
     private FoodAdapter adapterFoodArray;
     private CustomLocationClass companyLocation;
@@ -104,7 +104,6 @@ public class CreateCompanyActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.open_home_page: {
                     Intent intent = new Intent(CreateCompanyActivity.this, ManagerHomePageActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     return true;
                 }
@@ -237,9 +236,10 @@ public class CreateCompanyActivity extends AppCompatActivity {
                 company.setLocation(companyLocation);
                 company.setApproved(false);
                 String companyId = databaseReference.push().getKey();
-                databaseReference.child(companyId).setValue(company).addOnSuccessListener(aVoid ->
-                        Toast.makeText(CreateCompanyActivity.this, "Company added successfully", Toast.LENGTH_SHORT).show());
-                startActivity(new Intent(CreateCompanyActivity.this, ManagerHomePageActivity.class));
+                databaseReference.child(companyId).setValue(company).addOnSuccessListener(aVoid -> {
+                    Toast.makeText(CreateCompanyActivity.this, "Company added successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CreateCompanyActivity.this, ManagerHomePageActivity.class));
+                });
             }).addOnFailureListener(e -> Toast.makeText(CreateCompanyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show()));
         } else {
             Toast.makeText(CreateCompanyActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();

@@ -78,7 +78,6 @@ public class ManagerHomePageActivity extends AppCompatActivity {
                 }
                 case R.id.create_company: {
                     Intent intent = new Intent(ManagerHomePageActivity.this, CreateCompanyActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     return true;
                 }

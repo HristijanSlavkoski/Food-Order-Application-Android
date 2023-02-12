@@ -78,7 +78,6 @@ public class CustomerHomePageActivity extends AppCompatActivity {
                 }
                 case R.id.open_map: {
                     Intent intent = new Intent(CustomerHomePageActivity.this, ActivityShowNearbyCompanies.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("companies", fullCompanyList);
                     intent.putStringArrayListExtra("keys", fullKeyList);
                     startActivity(intent);
