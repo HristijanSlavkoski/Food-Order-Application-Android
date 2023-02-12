@@ -1,6 +1,7 @@
 package com.example.food_order_application_android.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,11 +17,8 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order_application_android.R;
+import com.example.food_order_application_android.activity.CompanyInfoForCustomer;
 import com.example.food_order_application_android.model.Company;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -64,7 +62,12 @@ public class CompanyAdapterForCustomerPage extends RecyclerView.Adapter<CompanyA
                 if (color == Color.RED) {
                     Toast.makeText(mContext, company.getName() + " is not working right now", Toast.LENGTH_SHORT).show();
                 } else {
-                    // TODO: Open company info for ordering
+                    Intent intent = new Intent(v.getContext(), CompanyInfoForCustomer.class);
+                    intent.putExtra("company", company);
+                    intent.putExtra("key", key);
+                    intent.putExtra("companies", new ArrayList<>(myList));
+                    intent.putStringArrayListExtra("keys", new ArrayList<>(myKeys));
+                    v.getContext().startActivity(intent);
                 }
             }
         });
