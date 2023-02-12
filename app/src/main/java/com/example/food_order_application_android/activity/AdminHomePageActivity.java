@@ -154,7 +154,6 @@ public class AdminHomePageActivity extends AppCompatActivity {
                 Toast.makeText(AdminHomePageActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

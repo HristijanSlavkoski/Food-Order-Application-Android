@@ -3,26 +3,45 @@ package com.example.food_order_application_android.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order_application_android.R;
+import com.example.food_order_application_android.adapter.CompanyAdapterForManagerPage;
+import com.example.food_order_application_android.model.Company;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManagerHomePageActivity extends AppCompatActivity {
 
+    private RecyclerView mRecyclerView;
+    private CompanyAdapterForManagerPage companyAdapterForManagerPage;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    private SearchView searchView;
+    private Spinner spinner;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -41,6 +60,14 @@ public class ManagerHomePageActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+        mRecyclerView = findViewById(R.id.company_list);
+        searchView = findViewById(R.id.search_bar);
+        spinner = findViewById(R.id.spinner_category);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        ArrayList<Company> fullCompanyList = new ArrayList<>();
+        ArrayList<String> fullKeyList = new ArrayList<>();
 
         NavigationView navigationView = findViewById(R.id.navigation_menu);
         navigationView.setNavigationItemSelectedListener(item -> {
@@ -55,8 +82,9 @@ public class ManagerHomePageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 }
-                case R.id.open_orders:
+                case R.id.open_orders: {
                     // Perform open orders
+                }
                 case R.id.nav_logout: {
                     firebaseAuth.signOut();
                     startActivity(new Intent(ManagerHomePageActivity.this, LoginActivity.class));
@@ -66,6 +94,74 @@ public class ManagerHomePageActivity extends AppCompatActivity {
 
                 default:
                     return false;
+            }
+        });
+
+        databaseReference.child("company").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Company> newCompanyList = new ArrayList<>();
+                List<String> newKeyList = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Company company = dataSnapshot.getValue(Company.class);
+                    if (company.getManagerUUID().equals(firebaseUser.getUid())) {
+                        fullCompanyList.add(company);
+                        fullKeyList.add(dataSnapshot.getKey());
+                        newCompanyList.add(company);
+                        newKeyList.add(dataSnapshot.getKey());
+                    }
+                }
+                companyAdapterForManagerPage = new CompanyAdapterForManagerPage(newKeyList, newCompanyList, R.layout.company_row_at_manager_page, ManagerHomePageActivity.this);
+                mRecyclerView.setAdapter(companyAdapterForManagerPage);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        List<Company> newCompanyList = new ArrayList<>();
+                        List<String> newKeyList = new ArrayList<>();
+                        for (int i = 0; i < fullCompanyList.size(); i++) {
+                            if (!spinner.getSelectedItem().toString().equals("All")) {
+                                if (spinner.getSelectedItem().toString().equals("Approved") && fullCompanyList.get(i).isApproved()) {
+                                    newCompanyList.add(fullCompanyList.get(i));
+                                    newKeyList.add(fullKeyList.get(i));
+                                } else if (spinner.getSelectedItem().toString().equals("Pending") && !fullCompanyList.get(i).isApproved()) {
+                                    newCompanyList.add(fullCompanyList.get(i));
+                                    newKeyList.add(fullKeyList.get(i));
+                                }
+                            } else {
+                                newCompanyList.add(fullCompanyList.get(i));
+                                newKeyList.add(fullKeyList.get(i));
+                            }
+                        }
+                        companyAdapterForManagerPage.clear();
+                        companyAdapterForManagerPage = new CompanyAdapterForManagerPage(newKeyList, newCompanyList, R.layout.company_row_at_manager_page, ManagerHomePageActivity.this);
+                        mRecyclerView.setAdapter(companyAdapterForManagerPage);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        companyAdapterForManagerPage.getFilter().filter(query);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        companyAdapterForManagerPage.getFilter().filter(newText);
+                        return false;
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ManagerHomePageActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
