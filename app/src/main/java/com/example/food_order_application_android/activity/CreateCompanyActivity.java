@@ -1,10 +1,14 @@
 package com.example.food_order_application_android.activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -38,7 +42,16 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CreateCompanyActivity extends AppCompatActivity {
 
@@ -242,6 +255,7 @@ public class CreateCompanyActivity extends AppCompatActivity {
                 databaseReference.child(companyId).setValue(company).addOnSuccessListener(aVoid -> {
                     Toast.makeText(CreateCompanyActivity.this, "Company added successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CreateCompanyActivity.this, ManagerHomePageActivity.class));
+                    sendNotification();
                 });
             }).addOnFailureListener(e -> Toast.makeText(CreateCompanyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show()));
         } else {
@@ -261,5 +275,61 @@ public class CreateCompanyActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sendNotification() {
+        // Create a new message
+        JSONObject message = new JSONObject();
+        try {
+            message.put("to", "/topics/all");
+            message.put("data", new JSONObject().put("message", "New company is created. Please review it."));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendMessageTask().execute(message);
+    }
+
+    private String convertStreamToString(InputStream inputStream) {
+        // This method reads the response from the server and converts it to a string
+        // You can customize this method to handle the response in any way you want
+        Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
+        return scanner.hasNext() ? scanner.next() : "";
+    }
+
+    private class SendMessageTask extends AsyncTask<JSONObject, Void, String> {
+        @Override
+        protected String doInBackground(JSONObject... params) {
+            try {
+                // Send the message to the server
+                URL url = new URL("https://fcm.googleapis.com/fcm/send");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Authorization", "key=AAAAwGr3WLk:APA91bGAn3eT_3EHNNdB6mDYGOIhnbHooHwzkoPf72KJvJ4P8uokEhkmN97HMP7utwSPB-Hy6_ZW0aDw5ZIVgcFp9WGmoBY0YSam9x75J3rYg_hpIhjuXQhc29_KHAsH6SlwHYy4pkNC");
+                connection.setDoOutput(true);
+
+                // Write the message to the request body
+                OutputStream outputStream = connection.getOutputStream();
+                outputStream.write(params[0].toString().getBytes());
+                outputStream.flush();
+                outputStream.close();
+
+                // Read the response from the server
+                InputStream inputStream = connection.getInputStream();
+                String response = convertStreamToString(inputStream);
+                inputStream.close();
+
+                return response;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            // Handle the response from the server
+            Log.d(TAG, "Response: " + response);
+        }
     }
 }
